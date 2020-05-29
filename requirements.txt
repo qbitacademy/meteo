@@ -1,0 +1,7 @@
+requests
+smbus2
+RPi.bme280
+gpiozero
+influxdb
+pyserial
+python-aqi
