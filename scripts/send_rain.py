@@ -42,7 +42,7 @@ for v in values[:-1]:
     params = {
         'Fecha': t.strftime('%d/%m/%Y-%H:%M:%S'),
         'ID': 'QBITACADEMY',
-        'Vacum': lluvia
+        'Vacum': round(lluvia, 2)
     }
     r = requests.get(
         'http://cambiocli.uclm.es/rawdata/lluvia.php',
