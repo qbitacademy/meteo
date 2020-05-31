@@ -12,9 +12,9 @@ try:
         stamp_file.read_text().split()[0], '%Y-%m-%dT%H:%M:%SZ'
     )
 except Exception:
-    last_sent = datetime.utcnow() - timedelta(minutes=5)
+    last_sent = datetime.utcnow() - timedelta(minutes=10)
 
-diff = int((datetime.utcnow() - last_sent).total_seconds() // 300)
+diff = int((datetime.utcnow() - timedelta(minutes=5) - last_sent).total_seconds() // 300)
 
 if diff == 0:
     print('Nothing to do')

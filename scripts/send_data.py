@@ -13,9 +13,9 @@ try:
         stamp_file.read_text().split()[0], '%Y-%m-%dT%H:%M:%SZ'
     )
 except Exception:
-    last_sent = datetime.utcnow() - timedelta(hours=1)
+    last_sent = datetime.utcnow() - timedelta(hours=2)
 
-diff = int((datetime.utcnow() - last_sent).total_seconds() // 3600)
+diff = int((datetime.utcnow() - timedelta(hours=1) - last_sent).total_seconds() // 3600)
 
 if diff == 0:
     print('Nothing to do')
@@ -27,11 +27,12 @@ db_client.switch_database('meteo')
 
 fields = ['humedad', 'temperatura', 'presion', 'viento_dir', 'viento_vel', 'uv']
 query = ",".join([f"mean({x})" for x in fields])
+
 values = db_client.query(
     f'SELECT {query} FROM sensores WHERE time > now() - {diff}h GROUP BY time(1h);'
 ).raw['series'][0]['values']
 
-for v in values[1:]:
+for v in values[:-1]:
     timestamp = datetime.strptime(v[0], '%Y-%m-%dT%H:%M:%SZ')
     t = timestamp.replace(tzinfo=timezone.utc).astimezone(tz=None)
     humedad, temperatura, presion, vdir, vvel, uv = [v if v is not None else 9999 for v in v[1:]]
