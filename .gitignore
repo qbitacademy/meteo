@@ -1,2 +1,4 @@
 *~
 venv
+.sensors_last_sent
+.rain_last_sent
