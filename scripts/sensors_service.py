@@ -26,7 +26,7 @@ wind_speed_sensor = Button(5)
 wind_speed_sensor.when_pressed = spin
 rain_sensor = Button(6)
 rain_sensor.when_pressed = bucket_tipped
-BUCKET_SIZE = 0.37
+BUCKET_SIZE = 0.38412
 
 
 # Calculate the wind speed
